@@ -19,7 +19,7 @@ function createMap(map) {
       "Quake_map": map,
     }
   
-    var world_map = L.map("map", {
+    var map = L.map("map", {
       center: [14.7075,0.29306],
    
       zoom: 2,
@@ -28,47 +28,28 @@ function createMap(map) {
   
     L.control.layers(baseMap, overlayMaps, {
       collapsed: false
-    }).addTo(world_map);
+    }).addTo(map);
+
 
     var legend = L.control({position: 'bottomright'});
 
-legend.onAdd = function (map) {
+      legend.onAdd = function (map) {
 
-    var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 10, 20, 50, 100, 200, 500, 1000],
-        labels = [];
+          var div = L.DomUtil.create('div', 'info legend'),
+              grades = [0, 10, 20, 50, 100, 200, 500, 1000],
+              labels = [];
 
-    // loop through our density intervals and generate a label with a colored square for each interval
-    for (var i = 0; i < grades.length; i++) {
-        div.innerHTML +=
-            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-    }
+          // loop through our density intervals and generate a label with a colored square for each interval
+          for (var i = 0; i < grades.length; i++) {
+              div.innerHTML +=
+                  '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                  grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+          }
 
-    return div;
-};
+          return div;
+      };
 
-legend.addTo(map);
-    
-   // var legend = L.control({position: 'bottomright'});
-    
-  //   legend.onAdd = function (map) {
-    
-  //       var div = L.DomUtil.create('div', 'info legend'),
-  //           grades = [0, 10, 20, 50, 100, 200, 500, 1000],
-
-    
-  //       // loop through our density intervals and generate a label with a colored square for each interval
-  //       // for (var i = 0; i < grades.length; i++) {
-  //       //     div.innerHTML +=
-  //       //         '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-  //       //         grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-  //       // }
-    
-  //       // return div;
-  //   };
-    
-  //   legend.addTo(world_map);
+      legend.addTo(map);
   };
 
 function getColor(d) {
@@ -91,7 +72,7 @@ function createMarkers(data) {
       var coords=incident
 
       var popupContent = {
-        Text: (incident.properties.place)
+        Text: (incident.properties.place),
       }
      console.log(popupContent)
     
@@ -104,7 +85,7 @@ function createMarkers(data) {
         weight: .5,
         color: "black",
         radius: (incident.properties.mag)*1.1 //needs to represent magnitude of earthquake 
-    }).bindPopup(`<body="${popupContent['Text']}"/>`); 
+    }).bindPopup(`${(popupContent['Text'])}`); 
       markers_list.push(one_marker)
     })
       
