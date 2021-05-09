@@ -20,9 +20,9 @@ function createMap(map) {
     }
   
     var world_map = L.map("map", {
-      center: [21.9162, 95.9560],
+      center: [14.7075,0.29306],
    
-      zoom: 6,
+      zoom: 2,
       layers: [map_base, map]
     });
   
@@ -71,13 +71,22 @@ function createMarkers(data) {
          
     data.features.forEach(incident=>{
       var coords=incident
+
+      var popupContent = {
+        Text: (incident.properties.place)
+      }
+     // console.log(popupContent)
     
       var one_marker=L.circleMarker([incident.geometry.coordinates[1],incident.geometry.coordinates[0]], {
         // color: 'red',
         fillColor: getColor(incident.geometry.coordinates[2]), //replace with depth of earthquake 
         fillOpacity: 1,
+        // stroke: #000000,
+        stroke: true,
+        weight: .5,
+        color: "black",
         radius: (incident.properties.mag)*1.1 //needs to represent magnitude of earthquake 
-    }).bindPopup(`<img src="${incident['Image_Link']}" body="${incident['Description']}"/>`)//"Bago"</h1>`); //incident['columnheader']
+    }).bindPopup(`<body=${[popupContent]}/>`); 
       markers_list.push(one_marker)
     })
       
